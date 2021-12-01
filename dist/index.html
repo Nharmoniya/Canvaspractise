@@ -13,28 +13,75 @@
 canvas.width = document.documentElement.clientWidth;
 canvas.height = document.documentElement.clientHeight;
 var ctx = canvas.getContext("2d");
+ctx.fillStyle = "black";
+ctx.strokeStyle = "black";
+ctx.lineWidth = 8;
+ctx.lineCap = "round";
 var patting = false;
-ctx.fillStyle = "blue";
+var last;
+var isTouchDevice = ('ontouchstart' in document.documentElement);
 
-canvas.onmousedown = function () {
-  painting = true;
-  ctx.fillStyle = "black";
-  ctx.strokeStyle = 'none';
-};
-
-canvas.onmousemove = function (e) {
-  if (painting === true) {
+if (isTouchDevice) {
+  canvas.ontouchmove = function (e) {
+    var x = e.touches[0].clientX;
+    var y = e.touches[0].clientY;
     ctx.beginPath();
-    ctx.arc(e.clientX, e.clientY, 10, 0, 2 * Math.PI);
+    ctx.arc(x, y, 10, 0, 2 * Math.PI);
     ctx.stroke();
     ctx.fill();
-  } else {
-    console.log('什么都不做');
-  }
-};
+  };
+} else {
+  canvas.onmousedown = function (e) {
+    painting = true;
+    last = [e.clientX, e.clientY];
+    console.log(last);
+  };
 
-canvas.onmouseup = function () {
-  painting = false;
-};</script>
+  canvas.onmousemove = function (e) {
+    if (painting === true) {
+      console.log(last);
+      drawline(last[0], last[1], e.clientX, e.clientY);
+      last = [e.clientX, e.clientY];
+    }
+  };
+
+  canvas.onmouseup = function () {
+    painting = false;
+  };
+}
+
+function drawline(x1, y1, x2, y2) {
+  ctx.beginPath();
+  ctx.moveTo(x1, y1);
+  ctx.lineTo(x2, y2);
+  ctx.stroke();
+} //  if(isTouchDevice){
+//       canvas.ontouchmove = (x)=>{
+//       let x =x.touches[0].clientX
+//       let y =x.touches[0].clientY
+//       ctx.beginPath();
+//       ctx.arc(x,y,10,0,2*Math.PI);
+//       ctx.stroke();
+//       ctx.fill();
+//       }
+//     }else{
+//     canvas.onmousedown= ()=>{
+//     painting=true
+//     }
+//  }
+//  canvas.onmousemove=(e)=>{
+//     if(painting===true){
+//     ctx.beginPath();
+//     ctx.arc(e.clientX,e.clientY,10,0,2*Math.PI); 
+//     ctx.stroke();
+//     ctx.fill();
+//     }
+//     else{
+//     console.log('什么都不做')
+//     }
+//  }
+//  canvas.onmouseup=()=>{
+//      painting=false;
+//  }</script>
 </body>
 </html>
