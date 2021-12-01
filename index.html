@@ -8,6 +8,24 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+     <div id="canvas"></div>
+     <script>
+         canvas.onclick = (e)=>{
+           console.log(e.clientX)
+           console.log(e.clientY)
+           //console.log 调试大法
+           let div =document.createElement('div')
+           div.style.position='absolute'
+           div.style.left=e.clientX+'px'
+           div.style.top=e.clientY+'px'
+           div.style.width='5px'
+           div.style.height='5px'
+           div.style.marginLeft='-3px'
+           div.style.marginRight='-3px'
+           div.style.borderRadius='50%'
+           div.style.background='black'
+           canvas.appendChild(div)
+         }
+     </script>
 </body>
 </html>

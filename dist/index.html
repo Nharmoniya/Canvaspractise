@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>画板</title>
+    <link rel="stylesheet" href="/style.e308ff8e.css">
+<script src="/style.e308ff8e.js"></script></head>
+<body>
+     <div id="canvas"></div>
+     <script>canvas.onclick = function (e) {
+  console.log(e.clientX);
+  console.log(e.clientY); //console.log 调试大法
+
+  var div = document.createElement('div');
+  div.style.position = 'absolute';
+  div.style.left = e.clientX + 'px';
+  div.style.top = e.clientY + 'px';
+  div.style.width = '5px';
+  div.style.height = '5px';
+  div.style.marginLeft = '-3px';
+  div.style.marginRight = '-3px';
+  div.style.borderRadius = '50%';
+  div.style.background = 'black';
+  canvas.appendChild(div);
+};</script>
+</body>
+</html>
