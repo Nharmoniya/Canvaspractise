@@ -8,22 +8,28 @@
     <link rel="stylesheet" href="/style.e308ff8e.css">
 <script src="/style.e308ff8e.js"></script></head>
 <body>
-     <div id="canvas"></div>
-     <script>canvas.onclick = function (e) {
-  console.log(e.clientX);
-  console.log(e.clientY); //console.log 调试大法
+     <canvas id="canvas" width="100vh" height="100vh"></canvas>
+     <script>var canvas = document.getElementById("canvas");
+canvas.width = document.documentElement.clientWidth;
+canvas.height = document.documentElement.clientHeight;
+var ctx = canvas.getContext("2d");
+var patting = false;
+ctx.fillStyle = "blue";
 
-  var div = document.createElement('div');
-  div.style.position = 'absolute';
-  div.style.left = e.clientX + 'px';
-  div.style.top = e.clientY + 'px';
-  div.style.width = '5px';
-  div.style.height = '5px';
-  div.style.marginLeft = '-3px';
-  div.style.marginRight = '-3px';
-  div.style.borderRadius = '50%';
-  div.style.background = 'black';
-  canvas.appendChild(div);
+canvas.onmousedown = function () {
+  painting = true;
+};
+
+canvas.onmousemove = function (e) {
+  if (painting === true) {
+    ctx.fillRect(e.clientX - 5, e.clientY - 5, 10, 10);
+  } else {
+    console.log('什么都不做');
+  }
+};
+
+canvas.onmouseup = function () {
+  painting = false;
 };</script>
 </body>
 </html>
