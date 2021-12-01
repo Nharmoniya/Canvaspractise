@@ -25,13 +25,16 @@
          document.documentElement;
 
          if(isTouchDevice){
-             canvas.ontouchmove=(e)=>{
+             canvas.ontouchstart=(e)=>{
                  let x=e.touches[0].clientX
                  let y=e.touches[0].clientY
-                 ctx.beginPath();
-                 ctx.arc(x,y,10,0,2*Math.PI);
-                 ctx.stroke();
-                 ctx.fill();
+                 last=[x,y]
+             }
+             canvas.ontouchmove=(e)=>{
+               let x=e.touches[0].clientX
+               let y=e.touches[0].clientY
+               drawline(last[0],last[1],x,y)
+               last = [x,y]
              }
          }
          else{

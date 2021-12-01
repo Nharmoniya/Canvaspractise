@@ -22,13 +22,17 @@ var last;
 var isTouchDevice = ('ontouchstart' in document.documentElement);
 
 if (isTouchDevice) {
+  canvas.ontouchstart = function (e) {
+    var x = e.touches[0].clientX;
+    var y = e.touches[0].clientY;
+    last = [x, y];
+  };
+
   canvas.ontouchmove = function (e) {
     var x = e.touches[0].clientX;
     var y = e.touches[0].clientY;
-    ctx.beginPath();
-    ctx.arc(x, y, 10, 0, 2 * Math.PI);
-    ctx.stroke();
-    ctx.fill();
+    drawline(last[0], last[1], x, y);
+    last = [x, y];
   };
 } else {
   canvas.onmousedown = function (e) {
